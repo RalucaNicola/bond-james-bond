@@ -1,8 +1,12 @@
+
+var webpack = require('webpack');
+
 module.exports = {
   entry: {
     main: [
       './src/js/main.js'
-    ]
+    ],
+    vendor: ['redux']
   },
   output: {
     filename: './dist/[name].bundle.js',
@@ -30,5 +34,11 @@ module.exports = {
 			}
     ]
   },
-  devtool: 'source-map'
+  devtool: 'source-map',
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: Infinity
+    })
+  ]
 }
