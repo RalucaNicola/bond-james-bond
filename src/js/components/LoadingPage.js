@@ -1,13 +1,15 @@
 require('../../style/loading-page.scss');
 
-const LoadingPage = {
+export const LoadingPage = {
 
-  init(containerId) {
-    this.container = document.getElementById(containerId);
+  init: function() {
+    this.container = document.getElementById('loading-page');
+    let animated = document.getElementById('circle1');
+    animated.addEventListener('animationend', () => {
+     console.log('animation finished');
+    })
   },
 
-  destroy() {
+  destroy: function() {
   }
 }
-
-export default LoadingPage;
