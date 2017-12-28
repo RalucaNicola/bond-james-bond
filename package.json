@@ -1,0 +1,17 @@
+{
+  "name": "bond-james-bond",
+  "version": "1.0.0",
+  "description": "An application that shows all the places where James Bond has been travelling to.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "3D",
+    "James",
+    "Bond",
+    "location"
+  ],
+  "author": "Raluca Nicola",
+  "license": "ISC"
+}
