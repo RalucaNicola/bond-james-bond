@@ -38,6 +38,12 @@ module.exports = {
         use: [
           { loader: "jshint-loader" }
         ]
+      },
+      {
+        test: /\.png$/,
+        use: [
+          { loader: "url-loader" }
+        ]
       }
     ]
   },
