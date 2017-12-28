@@ -1,0 +1,62 @@
+@import 'main';
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+#loading-page {
+  background-color: $app-background-color;
+  z-index: 1000;
+}
+
+#bond-image {
+  background: transparent url('../img/bond.png') no-repeat fixed center;
+  background-size: auto 100px;
+}
+
+@keyframes slideFromLeft {
+  from {
+    left: 0;
+  }
+
+  to {
+    left: 50%;
+    margin-left: -100px;
+  }
+}
+
+@keyframes slideFromRight {
+  from {
+    right: 0;
+  }
+
+  to {
+    right: 50%;
+    margin-right: -100px;
+  }
+}
+
+#circle1 {
+  animation-duration: 3s;
+  animation-name: slideFromLeft;
+}
+
+#circle2 {
+  animation-duration: 3s;
+  animation-name: slideFromRight;
+}
+
+.circle {
+  position: absolute;
+  top: 50%;
+  margin-top: -100px;
+  border-radius: 50%;
+  height: 200px;
+  width: 200px;
+  background-color: rgba(255, 255, 255, 0.5);
+  animation-fill-mode: forwards;
+}
