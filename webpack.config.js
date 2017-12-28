@@ -31,6 +31,13 @@ module.exports = {
           { loader: "css-loader" },
           { loader: "sass-loader" }
         ]
+      },
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: [
+          { loader: "jshint-loader" }
+        ]
       }
     ]
   },
