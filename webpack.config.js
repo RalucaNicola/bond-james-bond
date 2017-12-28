@@ -40,5 +40,8 @@ module.exports = {
         name: 'vendor',
         minChunks: Infinity
     })
-  ]
+  ],
+  devServer: {
+    contentBase: __dirname
+  }
 }

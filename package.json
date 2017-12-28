@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "An application that shows all the places where James Bond has been travelling to.",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "start": "webpack-dev-server --open"
+  },
   "keywords": [
     "3D",
     "James",
@@ -20,7 +22,8 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.7"
   },
   "dependencies": {
     "redux": "^3.7.2"
