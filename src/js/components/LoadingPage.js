@@ -7,9 +7,9 @@ export const LoadingPage = {
     let animated = document.getElementById('circle1');
     animated.addEventListener('animationend', () => {
      console.log('animation finished');
-    })
+    });
   },
 
   destroy: function() {
   }
-}
+};
