@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "An application that shows all the places where James Bond has been travelling to.",
   "main": "index.js",
-  "scripts": {
-  },
+  "scripts": {},
   "keywords": [
     "3D",
     "James",
@@ -12,5 +11,8 @@
     "location"
   ],
   "author": "Raluca Nicola",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
 }
