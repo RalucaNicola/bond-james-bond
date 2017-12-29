@@ -1,4 +1,4 @@
-# Bond, James Bond
+# Bond... James Bond
 
 An application that shows all the places where James Bond has been travelling to.
 
