@@ -1,4 +1,6 @@
 import {LoadingPage} from './components/LoadingPage';
+import {appStore} from './appStore';
 require('../style/main.scss');
 
-LoadingPage.init();
+console.log(appStore);
+LoadingPage.init(appStore);

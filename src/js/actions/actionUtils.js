@@ -1,8 +1,8 @@
-import * as types from './action-types';
+import * as types from './actionTypes';
 
-export function websceneLoaded(value) {
+export function viewReady(value) {
   return {
-    type: types.WEBSCENE_LOADED,
+    type: types.VIEW_READY,
     value: value
   };
 }
@@ -10,5 +10,5 @@ export function websceneLoaded(value) {
 export function animationFinished() {
   return {
     type: types.ANIMATION_FINISHED
-  }
+  };
 }

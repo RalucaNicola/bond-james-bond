@@ -80,6 +80,11 @@
   "wsh"           : false,    // Windows Scripting Host
   "yui"           : false,    // Yahoo User Interface
 
+  // Added this rule because of Redux syntax, see these issues:
+  // https://github.com/jshint/jshint/issues/2904
+  // https://github.com/reactjs/redux/issues/1410
+  "-W138"         : true,
+
   // Legacy ** According to jshint docs, these options are NOT to be used or relied on. Removing them.
   //"nomen"         : false,    // true: Prohibit dangling `_` in variables
   //"onevar"        : false,    // true: Allow only one `var` statement per function
