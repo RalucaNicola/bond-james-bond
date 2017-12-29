@@ -1,4 +1,5 @@
 import {animationFinished} from '../actions/actionUtils';
+import watch from 'redux-watch';
 import Typed from 'typed.js';
 require('../../style/loading-page.scss');
 
@@ -12,7 +13,9 @@ export const LoadingPage = {
      store.dispatch(animationFinished());
     });
 
-    store.subscribe(() => {
+    let animationWatcher = watch(store.getState, 'initialization.animationFinished');
+
+    store.subscribe(animationWatcher(() => {
       this.typed = new Typed('#loading-message', {
         strings: ['Loading: webscene'],
         typeSpeed: 20,
@@ -23,9 +26,15 @@ export const LoadingPage = {
         smartBackspace: true,
         loop: false
       });
-    });
+    }));
+
+    let viewReadyWatcher = watch(store.getState, 'initialization.viewReady');
+    store.subscribe(viewReadyWatcher(() => {
+      this.destroy();
+    }));
   },
 
   destroy() {
+    this.container.remove();
   }
 };

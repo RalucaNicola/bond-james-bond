@@ -12,7 +12,7 @@ export function initializationReducer ( state = defaultState, action) {
   switch (action.type) {
     case VIEW_READY:
       return Object.assign({}, state, {
-        viewReady: false
+        viewReady: true
       });
     case ANIMATION_FINISHED:
       return Object.assign({}, state, {

@@ -2,6 +2,8 @@ import WebScene from 'esri/WebScene';
 import SceneView from 'esri/views/SceneView';
 import VectorTileLayer from 'esri/layers/VectorTileLayer';
 import novaStyle from '../../data/nova.json';
+import watch from 'redux-watch';
+import {viewReady} from '../actions/actionUtils';
 require('../../style/scene.scss');
 
 export const Scene = {
@@ -21,9 +23,10 @@ export const Scene = {
       }
     });
 
-    store.subscribe(() => {
+    let animationWatcher = watch(store.getState, 'initialization.animationFinished');
+    store.subscribe(animationWatcher(() => {
       this._initializeView();
-    });
+    }));
 
   },
 
@@ -40,6 +43,10 @@ export const Scene = {
       },
       viewingMode: 'local'
     });
+
+    window.setTimeout(() => {
+      this.store.dispatch(viewReady());
+    }, 5000);
 
   }
 };
