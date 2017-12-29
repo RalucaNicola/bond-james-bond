@@ -13,6 +13,11 @@ module.exports = {
     libraryTarget: 'amd'
   },
   module: {
+    loaders:[
+    {
+      test: /\.json$/,
+      loader: 'json-loader'
+    }],
     rules: [
       {
         test: /\.(js|jsx)$/,

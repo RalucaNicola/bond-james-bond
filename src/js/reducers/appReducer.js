@@ -1,11 +1,7 @@
 import { combineReducers } from 'redux';
 
-import {
-  viewReady,
-  animationFinished
-} from './initializationReducers';
+import { initializationReducer } from './initializationReducer';
 
 export default combineReducers({
-  viewReady,
-  animationFinished
+  initializationReducer
 });
