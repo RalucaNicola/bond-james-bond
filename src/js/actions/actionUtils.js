@@ -1,9 +1,8 @@
 import * as types from './actionTypes';
 
-export function viewReady(value) {
+export function viewReady() {
   return {
-    type: types.VIEW_READY,
-    value: value
+    type: types.VIEW_READY
   };
 }
 

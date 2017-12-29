@@ -6,7 +6,7 @@ module.exports = {
     main: [
       './src/js/main.js'
     ],
-    vendor: ['redux']
+    vendor: ['redux', 'typed.js']
   },
   output: {
     filename: './dist/[name].bundle.js',

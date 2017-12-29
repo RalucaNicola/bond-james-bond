@@ -12,14 +12,12 @@
     <div id="circle1" class="circle"></div>
     <div id="circle2" class="circle"></div>
     <div id="bond-image" class="overlay"></div>
-    <p id="loading-bar"></p>
+    <div id="loading-bar">
+      <span id="loading-message"/>
+    </div>
   </div>
   <script src="https://js.arcgis.com/4.6/"></script>
   <script>
-    // once the ArcGIS API for JavaScript has loaded
-    // we must use Dojo's require() to load the bundled webpack output
-    // only the Dojo loader will be able to resolve the bundle's references
-    // to "external" dependencies on modules in the esri and dojo packages
     require(["./dist/vendor.bundle.js", "./dist/main.bundle.js"], function (vendor, main) { });
   </script>
 </body>
