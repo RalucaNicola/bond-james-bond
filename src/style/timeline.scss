@@ -39,6 +39,14 @@ $large-size: 1600px;
 
       img{
         width: 100%;
+        pointer-events: none;
+        &.grayed-out{
+          filter: grayscale(80%);
+        }
+      }
+
+      p{
+        pointer-events: none;
       }
     }
   }
