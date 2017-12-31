@@ -41,7 +41,7 @@ $large-size: 1600px;
       img{
         width: 100%;
         pointer-events: none;
-        filter: grayscale(80%);
+        filter: grayscale(90%);
         &.selected{
           filter: none;
         }
