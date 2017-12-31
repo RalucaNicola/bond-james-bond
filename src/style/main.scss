@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+$roboto-mono: 'Roboto Mono', monospace;
 $dark-blue:  #090d21; // for application background
 $white: #fff; // for font color;
 $transparent-white: rgba(250, 250, 250, 0.1); // mainly for background of overlays
@@ -11,11 +13,11 @@ html, body {
   color: $white;
   background-color: $dark-blue;
   font-size: 12px;
-  font-family: monospace;
+  font-family: $roboto-mono;
 }
 
 .esri-component.esri-attribution.esri-widget{
   background: transparent;
   color:white;
-  font-size: 0.6em;
+  font-size: 0.7em;
 }
