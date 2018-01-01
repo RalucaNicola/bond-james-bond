@@ -1,4 +1,6 @@
 import movieList from '../../data/movie-list.json';
+
+import colors from '../../style/colors.scss';
 require('../../style/timeline.scss');
 
 function createMovieItem(movie) {
@@ -6,7 +8,7 @@ function createMovieItem(movie) {
   template.innerHTML = `
     <div class='movie-item' data-title='${movie.title}' data-director='${movie.director}'
     data-id=${movie.id} data-year=${movie.year} data-actor='${movie.actor}'>
-      <img src='./src/img/posters/${movie.image}' class='grayed-out'/>
+      <div class='image-border'><img src='./src/img/posters/${movie.image}' class='grayed-out'/></div>
       <p>${movie.year}</p>
     </div>
     `;
@@ -46,6 +48,20 @@ function handleEventsOnMouseOver(movieItem) {
   });
 }
 
+/*
+  functions concerning visualization mode by actor
+*/
+
+function visualizeByActor() {
+  let movieItemsList = document.getElementsByClassName('movie-item');
+  console.log(colors);
+  for (let i = 0; i < movieItemsList.length; i++) {
+    let movieItem = movieItemsList[i];
+    let imageItem = movieItem.getElementsByClassName('image-border')[0];
+    let actor = movieItem.dataset.actor;
+    imageItem.style.border = '3px solid ' + colors[`actors-${actor.replace(' ', '').toLowerCase()}`];
+  }
+}
 
 export const Timeline = {
 
@@ -62,5 +78,7 @@ export const Timeline = {
       handleEventsOnMouseOver(movieItem);
     });
 
+    visualizeByActor();
   }
+
 };

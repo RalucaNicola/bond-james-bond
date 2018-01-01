@@ -26,6 +26,7 @@ export const Scene = {
     let animationWatcher = watch(store.getState, 'initialization.animationFinished');
     store.subscribe(animationWatcher(() => {
       this._initializeView();
+      console.log(store.getState());
     }));
 
   },
