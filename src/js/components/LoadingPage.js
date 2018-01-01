@@ -35,6 +35,7 @@ export const LoadingPage = {
   },
 
   destroy() {
+    this.typed.destroy();
     this.container.remove();
   }
 };

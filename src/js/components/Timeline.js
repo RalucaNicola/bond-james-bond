@@ -54,7 +54,6 @@ function handleEventsOnMouseOver(movieItem) {
 
 function visualizeByActor() {
   let movieItemsList = document.getElementsByClassName('movie-item');
-  console.log(colors);
   for (let i = 0; i < movieItemsList.length; i++) {
     let movieItem = movieItemsList[i];
     let imageItem = movieItem.getElementsByClassName('image-border')[0];
