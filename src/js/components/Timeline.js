@@ -20,19 +20,21 @@ function updateTooltipContent(data) {
       <p>${data.director}</p>`;
 }
 
-function displayTooltip(positionX) {
+function displayTooltip(left, top) {
   let tooltipElement = document.querySelector('.tooltip');
   tooltipElement.classList.add('visible');
-  tooltipElement.style.left = positionX + 'px';
+  tooltipElement.style.left = left + 'px';
+  tooltipElement.style.top = top - 100 + 'px';
 }
 
 function handleEventsOnMouseOver(movieItem) {
   movieItem.addEventListener('mouseover', function (evt) {
     let target = evt.target;
     let image = target.getElementsByTagName('img')[0];
+    let position = image.getBoundingClientRect();
     image.classList.add('selected');
     updateTooltipContent(target.dataset);
-    displayTooltip(target.offsetLeft);
+    displayTooltip(position.left, position.top);
     evt.stopPropagation();
   });
 
