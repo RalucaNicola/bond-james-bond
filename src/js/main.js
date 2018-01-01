@@ -9,5 +9,5 @@ const appStore = StoreConfig.init();
 
 LoadingPage.init(appStore);
 Scene.init(appStore);
-Timeline.init(document.querySelector('#timeline>.container'));
+Timeline.init(document.querySelector('#timeline>.container'), appStore);
 InfoPanel.init(appStore);

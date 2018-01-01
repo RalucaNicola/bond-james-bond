@@ -1,4 +1,5 @@
 import movieList from '../../data/movie-list.json';
+import watch from 'redux-watch';
 
 import colors from '../../style/colors.scss';
 require('../../style/timeline.scss');
@@ -65,7 +66,7 @@ function visualizeByActor() {
 export const Timeline = {
 
   // initialize timeline
-  init(container) {
+  init(container, store) {
 
     movieList.movies.forEach(function(movie) {
 
@@ -77,7 +78,12 @@ export const Timeline = {
       handleEventsOnMouseOver(movieItem);
     });
 
-    visualizeByActor();
+    let visualizationChangeWatcher = watch(store.getState, 'visualization');
+    store.subscribe(visualizationChangeWatcher((value) => {
+      if (value.mode === 'Actor') {
+        visualizeByActor();
+      }
+    }));
   }
 
 };

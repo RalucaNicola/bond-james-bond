@@ -56,7 +56,6 @@ function getUniqueActors(movies) {
 
 function displayActors(container) {
   let actors = getUniqueActors(movieList.movies);
-  console.log(movieList.movies);
   actors.forEach((actor) => {
     let actorTemplate = document.createElement('template');
     actorTemplate.innerHTML = `<div>
@@ -65,6 +64,10 @@ function displayActors(container) {
     </div>`;
     container.appendChild(actorTemplate.content.firstElementChild);
   });
+}
+
+function emptyElement(element) {
+  element.innerHTML = '';
 }
 
 export const InfoPanel = {
@@ -85,6 +88,7 @@ export const InfoPanel = {
     let visualizationChangeWatcher = watch(store.getState, 'visualization');
     store.subscribe(visualizationChangeWatcher((value) => {
       if (value.mode === 'Actor') {
+        emptyElement(this.details);
         displayActors(this.details);
       }
     }));
