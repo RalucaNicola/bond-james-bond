@@ -38,6 +38,10 @@ $large-size: 1600px;
         margin: 0 auto;
       }
 
+      .image-border {
+        pointer-events: none;
+      }
+
       img{
         width: 100%;
         pointer-events: none;

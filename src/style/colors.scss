@@ -1,0 +1,24 @@
+$dark-blue:  #090d21; // for application background
+$white: #ffffff;
+$transparent-white: rgba(250, 250, 250, 0.1); // mainly for background of overlays
+
+//$cyan: #42dce0;
+$purple: #c398e0;
+$green: #cde5a7;
+$cyan: #97d9db;
+$red: #e5a7a7;
+$yellow: #e5cfa7;
+$blue: #a7a7e5;
+
+:export {
+  darkBlue: $dark-blue;
+  transparentWhite: $transparent-white;
+  actors: {
+    seanconnery: $cyan;
+    rogermoore: $red;
+    danielcraig: $green;
+    georgelazenby: $purple;
+    piercebrosnan: $yellow;
+    timothydalton: $blue;
+  }
+}
