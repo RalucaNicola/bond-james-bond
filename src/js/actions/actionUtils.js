@@ -11,3 +11,11 @@ export function animationFinished() {
     type: types.ANIMATION_FINISHED
   };
 }
+
+export function visualizationChanged(value, data) {
+  return {
+    type: types.VISUALIZATION_CHANGED,
+    value: value,
+    data: data
+  };
+}

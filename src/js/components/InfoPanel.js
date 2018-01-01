@@ -20,8 +20,22 @@ function startTyping(container, text, onComplete) {
   });
 }
 
-function initializeMenu(container) {
+function onMenuClick(menuItem, store) {
+  console.log(store.getState());
+}
 
+function initializeMenu(container, store) {
+  ['Movie', 'Actor'].forEach((item) => {
+    let menuItem = document.createElement('li');
+    menuItem.innerHTML = item;
+    if (item === 'Movie') {
+      menuItem.classList.add('info-selected');
+    }
+    menuItem.addEventListener('click', () => {
+      onMenuClick(menuItem, store);
+    });
+    container.append(menuItem);
+  });
 }
 
 export const InfoPanel = {
@@ -34,7 +48,7 @@ export const InfoPanel = {
     store.subscribe(viewReadyWatcher(() => {
       startTyping(this.title,
         `Visualize James Bond's travels based on:`,
-        () => { initializeMenu(this.menu); }
+        () => { initializeMenu(this.menu, store); }
       );
     }));
   }

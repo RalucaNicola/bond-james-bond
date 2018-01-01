@@ -1,5 +1,10 @@
 @import 'colors';
 
+@mixin selected-menu-item {
+  background-color: white;
+  color: $dark-blue;
+}
+
 #info-panel {
   position: absolute;
   top: 10px;
@@ -9,8 +14,27 @@
   border-left: 1px solid $white;
   z-index: 2;
 
-  .title {
-    overflow: hidden;
-    width: 30em;
+  ul {
+    list-style-type: none;
+    margin: 0px;
+    padding: 10px 0;
+    display: flex;
+
+    li {
+      list-style: none;
+      padding: 0 4px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    li:hover {
+      @include selected-menu-item;
+    }
+
+    li.info-selected {
+      @include selected-menu-item;
+    }
+
   }
+
 }
