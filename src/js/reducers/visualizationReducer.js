@@ -1,32 +1,24 @@
 import {
-  VISUALIZATION_CHANGED
+  VISUALIZATION_CHANGED,
+  SELECTION_CHANGED
 } from '../actions/actionTypes';
 
 const defaultState = {
-  mode: 'Actor',
+  mode: 'Movie',
   selection: null
 };
 
 export function visualizationReducer ( state = defaultState, action) {
   switch (action.type) {
     case VISUALIZATION_CHANGED:
-      let selection = state.selection;
-      if (action.data) {
-        if (action.value === 'Actor') {
-          selection = {
-            selectedActor: action.data
-          };
-        }
-        else if (action.value === 'Movie') {
-          selection = {
-            selectedMovie: action.data,
-            animatingMovie: action.animatingMovie
-          };
-        }
-      }
       return Object.assign({}, state, {
-        mode: action.value,
-        selection: selection
+        mode: action.mode,
+        selection: null
+      });
+
+    case SELECTION_CHANGED:
+      return Object.assign({}, state, {
+        selection: action.selection
       });
 
     default:

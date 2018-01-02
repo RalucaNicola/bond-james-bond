@@ -34,7 +34,7 @@ function initializeMenu(container, store) {
   ['Movie', 'Actor'].forEach((item) => {
     let menuItem = document.createElement('li');
     menuItem.innerHTML = item;
-    if (item === 'Movie') {
+    if (item === store.getState().visualization.mode) {
       menuItem.classList.add('info-selected');
     }
     menuItem.addEventListener('click', () => {
@@ -103,22 +103,30 @@ export const InfoPanel = {
     store.subscribe(viewReadyWatcher(() => {
       startTyping(this.title,
         `Visualize James Bond's travels based on:`,
-        () => { initializeMenu(this.menu, store); }
+        () => {
+          initializeMenu(this.menu, store);
+          this.render(store.getState().visualization);
+        }
       );
     }));
 
     let visualizationChangeWatcher = watch(store.getState, 'visualization');
     store.subscribe(visualizationChangeWatcher((value) => {
-      if (value.mode === 'Actor') {
-        console.log(store.getState());
-        emptyElement(this.details);
-        displayActors(this.details);
-      }
-      else {
-        console.log(store.getState());
-        emptyElement(this.details);
-        displayMovies(this.details);
-      }
+      this.render(value);
     }));
+
+  },
+
+  render(stateVisualization) {
+
+    if (stateVisualization.mode === 'Actor') {
+      emptyElement(this.details);
+      displayActors(this.details);
+    }
+    else if (stateVisualization.mode === 'Movie') {
+      emptyElement(this.details);
+      displayMovies(this.details);
+    }
+
   }
 };

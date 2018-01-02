@@ -85,17 +85,25 @@ export const Timeline = {
 
       // add event listeners
       handleEventsOnMouseOver(movieItem);
+
     });
 
     let visualizationChangeWatcher = watch(store.getState, 'visualization');
     store.subscribe(visualizationChangeWatcher((value) => {
-      if (value.mode === 'Actor') {
-        visualizeByActor();
-      }
-      else {
-        visualizeByMovie();
-      }
+      this.render(value);
     }));
+
+    this.render(store.getState().visualization);
+  },
+
+  render(stateVisualization) {
+    // this method will render based on the state of the visualization
+    if (stateVisualization.mode === 'Movie') {
+      visualizeByMovie();
+    }
+    else if (stateVisualization.mode === 'Actor') {
+      visualizeByActor();
+    }
   }
 
 };

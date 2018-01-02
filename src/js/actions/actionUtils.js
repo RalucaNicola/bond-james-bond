@@ -12,10 +12,16 @@ export function animationFinished() {
   };
 }
 
-export function visualizationChanged(value, data) {
+export function visualizationChanged(mode) {
   return {
     type: types.VISUALIZATION_CHANGED,
-    value: value,
-    data: data
+    mode: mode
+  };
+}
+
+export function selectionChanged(selection) {
+  return {
+    type: types.SELECTION_CHANGED,
+    selection: selection
   };
 }
