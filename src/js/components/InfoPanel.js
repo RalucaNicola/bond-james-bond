@@ -66,6 +66,28 @@ function displayActors(container) {
   });
 }
 
+function displayMovies(container) {
+  let movieTemplate = document.createElement('template');
+    movieTemplate.innerHTML = `<div>
+      <p>During all his movies James Bond has mostly travelled to:</p>
+      <div>
+        <img class='bond-symbol' src='./src/img/target-blue.svg' style='height: 40px'>
+        <span>London</span>
+      </div>
+      <div>
+        <img class='bond-symbol' src='./src/img/target-blue.svg' style='height: 30px; margin: 0 5px;'>
+        <span>Paris</span>
+      </div>
+      <div style='margin-top: 5px'>
+        <img class='bond-symbol' src='./src/img/target-blue.svg' style='height: 20px; margin: 0 10px;'>
+        <span>Tokyo</span>
+      </div>
+      <p>James Bond was last seen in London.</p>
+      <p>Select a movie in the timeline for more details.</p>
+    </div>`;
+    container.appendChild(movieTemplate.content.firstElementChild);
+}
+
 function emptyElement(element) {
   element.innerHTML = '';
 }
@@ -88,8 +110,14 @@ export const InfoPanel = {
     let visualizationChangeWatcher = watch(store.getState, 'visualization');
     store.subscribe(visualizationChangeWatcher((value) => {
       if (value.mode === 'Actor') {
+        console.log(store.getState());
         emptyElement(this.details);
         displayActors(this.details);
+      }
+      else {
+        console.log(store.getState());
+        emptyElement(this.details);
+        displayMovies(this.details);
       }
     }));
   }

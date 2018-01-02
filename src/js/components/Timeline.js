@@ -63,6 +63,15 @@ function visualizeByActor() {
   }
 }
 
+function visualizeByMovie() {
+  let movieItemsList = document.getElementsByClassName('movie-item');
+  for (let i = 0; i < movieItemsList.length; i++) {
+    let movieItem = movieItemsList[i];
+    let imageItem = movieItem.getElementsByClassName('image-border')[0];
+    imageItem.style.border = 'none';
+  }
+}
+
 export const Timeline = {
 
   // initialize timeline
@@ -82,6 +91,9 @@ export const Timeline = {
     store.subscribe(visualizationChangeWatcher((value) => {
       if (value.mode === 'Actor') {
         visualizeByActor();
+      }
+      else {
+        visualizeByMovie();
       }
     }));
   }
