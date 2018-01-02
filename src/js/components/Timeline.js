@@ -1,4 +1,4 @@
-import movieList from '../../data/movie-list.json';
+import { dataManager } from '../dataManager';
 import watch from 'redux-watch';
 
 import colors from '../../style/colors.scss';
@@ -77,7 +77,7 @@ export const Timeline = {
   // initialize timeline
   init(container, store) {
 
-    movieList.movies.forEach(function(movie) {
+    dataManager.movies.forEach(function(movie) {
 
       // create movie element
       let movieItem = createMovieItem(movie);

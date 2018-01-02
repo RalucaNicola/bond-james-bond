@@ -1,7 +1,7 @@
 import watch from 'redux-watch';
 import Typed from 'typed.js';
 import {visualizationChanged} from '../actions/actionUtils';
-import movieList from '../../data/movie-list.json';
+import { dataManager } from '../dataManager';
 
 import colors from '../../style/colors.scss';
 require('../../style/info-panel.scss');
@@ -44,18 +44,10 @@ function initializeMenu(container, store) {
   });
 }
 
-function getUniqueActors(movies) {
-  let actors = [];
-  for (let i = 0; i < movies.length; i++) {
-    if (actors.indexOf(movies[i].actor) === -1) {
-      actors.push(movies[i].actor);
-    }
-  }
-  return actors;
-}
+
 
 function displayActors(container) {
-  let actors = getUniqueActors(movieList.movies);
+  let actors = dataManager.uniqueActors;
   actors.forEach((actor) => {
     let actorTemplate = document.createElement('template');
     actorTemplate.innerHTML = `<div>
@@ -67,6 +59,7 @@ function displayActors(container) {
 }
 
 function displayMovies(container) {
+  console.log(dataManager.sortedUniqueLocations);
   let movieTemplate = document.createElement('template');
     movieTemplate.innerHTML = `<div>
       <p>During all his movies James Bond has mostly travelled to:</p>

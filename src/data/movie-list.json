@@ -8,19 +8,19 @@
       "image": "drno.png",
       "locations": [
         {
-          "location": "London",
+          "name": "London",
           "country": "UK",
           "longitude": -0.105,
           "latitude": 51.513
         },
         {
-          "location": "Kingston",
+          "name": "Kingston",
           "country": "Jamaica",
           "longitude": -76.784,
           "latitude": 17.971
         },
         {
-          "location": "Crab Key (fictive)",
+          "name": "Crab Key (fictive)",
           "country": "Jamaica",
           "longitude": -77.136,
           "latitude": 18.417
@@ -35,31 +35,31 @@
       "image": "fromrussia.png",
       "locations": [
         {
-          "location": "London",
+          "name": "London",
           "country": "UK",
           "longitude": -0.105,
           "latitude": 51.513
         },
         {
-          "location": "Istanbul",
+          "name": "Istanbul",
           "country": "Turkey",
           "longitude": 29.046,
           "latitude": 41.028
         },
         {
-          "location": "Belgrad",
+          "name": "Belgrad",
           "country": "Yugoslavia",
           "longitude": 20.476,
           "latitude": 44.811
         },
         {
-          "location": "Zagreb",
+          "name": "Zagreb",
           "country": "Croatia",
           "longitude": 15.987,
           "latitude": 45.796
         },
         {
-          "location": "Venice",
+          "name": "Venice",
           "country": "Italy",
           "longitude": 12.327,
           "latitude": 45.438
@@ -74,37 +74,37 @@
       "image": "goldfinger.png",
       "locations": [
         {
-          "location": "Miami",
+          "name": "Miami",
           "country": "FL, USA",
           "longitude": -80.197,
           "latitude": 25.783
         },
         {
-          "location": "London",
+          "name": "London",
           "country": "UK",
           "longitude": -0.105,
           "latitude": 51.513
         },
         {
-          "location": "Royal St Georges Golf",
+          "name": "Royal St Georges Golf",
           "country": "Kent, UK",
           "longitude": 1.377,
           "latitude": 51.273
         },
         {
-          "location": "Geneva",
+          "name": "Geneva",
           "country": "Switzerland",
           "longitude": 6.145,
           "latitude": 46.208
         },
         {
-          "location": "Fort Knox, Kentucky",
+          "name": "Fort Knox, Kentucky",
           "country": "USA",
           "longitude": -85.963,
           "latitude": 37.884
         },
         {
-          "location": "Washington D.C.",
+          "name": "Washington D.C.",
           "country": "USA",
           "longitude": -77.016,
           "latitude": 38.878
