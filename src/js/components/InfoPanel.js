@@ -74,7 +74,6 @@ function displayMovies(container) {
         <img class='bond-symbol' src='./src/img/circle-blue.svg' style='height: 20px; margin: 0 10px;'>
         <span>Tokyo</span>
       </div>
-      <p>James Bond was last seen in London.</p>
       <p>Select a movie in the timeline for more details.</p>
     </div>`;
     container.appendChild(movieTemplate.content.firstElementChild);
