@@ -59,20 +59,19 @@ function displayActors(container) {
 }
 
 function displayMovies(container) {
-  console.log(dataManager.sortedUniqueLocations);
   let movieTemplate = document.createElement('template');
     movieTemplate.innerHTML = `<div>
       <p>During all his movies James Bond has mostly travelled to:</p>
       <div>
-        <img class='bond-symbol' src='./src/img/target-blue.svg' style='height: 40px'>
+        <img class='bond-symbol' src='./src/img/circle-blue.svg' style='height: 40px'>
         <span>London</span>
       </div>
       <div>
-        <img class='bond-symbol' src='./src/img/target-blue.svg' style='height: 30px; margin: 0 5px;'>
+        <img class='bond-symbol' src='./src/img/circle-blue.svg' style='height: 30px; margin: 0 5px;'>
         <span>Paris</span>
       </div>
       <div style='margin-top: 5px'>
-        <img class='bond-symbol' src='./src/img/target-blue.svg' style='height: 20px; margin: 0 10px;'>
+        <img class='bond-symbol' src='./src/img/circle-blue.svg' style='height: 20px; margin: 0 10px;'>
         <span>Tokyo</span>
       </div>
       <p>James Bond was last seen in London.</p>

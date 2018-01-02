@@ -4,6 +4,8 @@ import VectorTileLayer from 'esri/layers/VectorTileLayer';
 import novaStyle from '../../data/nova.json';
 import watch from 'redux-watch';
 import {viewReady} from '../actions/actionUtils';
+
+import {dataManager} from '../dataManager';
 require('../../style/scene.scss');
 
 export const Scene = {
@@ -41,12 +43,29 @@ export const Scene = {
         atmosphereEnabled: false,
         starsEnabled: false
       },
-      viewingMode: 'local'
+      viewingMode: 'local',
+      camera: {
+        position: {
+          x: -16717961.801382363,
+          y: -12063519.288896995,
+          z: 12585640.377230108,
+          spatialReference: {
+            wkid: 102100
+          }
+        },
+        heading: 36,
+        tilt: 61
+      }
     });
+
+    window.view = this.view;
 
     window.setTimeout(() => {
       this.store.dispatch(viewReady());
     }, 5000);
+
+    const featureLayer = dataManager.getAllLocationsAsFeatureLayer();
+    this.webscene.add(featureLayer);
 
   }
 };
