@@ -85,7 +85,7 @@ function emptyElement(element) {
   element.innerHTML = '';
 }
 
-export const InfoPanel = {
+export default {
   init(store) {
     this.container = document.getElementById('info-panel');
     this.title = document.getElementById('info-title');

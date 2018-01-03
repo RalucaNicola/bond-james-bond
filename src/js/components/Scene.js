@@ -10,7 +10,7 @@ import dataManager from '../dataManager';
 import vizConfig from '../visualizationConfig';
 require('../../style/scene.scss');
 
-export const Scene = {
+export default {
 
   init(store) {
 

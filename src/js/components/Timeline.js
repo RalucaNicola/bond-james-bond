@@ -72,7 +72,7 @@ function visualizeByMovie() {
   }
 }
 
-export const Timeline = {
+export default {
 
   // initialize timeline
   init(container, store) {
