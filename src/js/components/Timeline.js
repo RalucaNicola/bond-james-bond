@@ -1,4 +1,4 @@
-import { dataManager } from '../dataManager';
+import dataManager from '../dataManager';
 import watch from 'redux-watch';
 
 import colors from '../../style/colors.scss';

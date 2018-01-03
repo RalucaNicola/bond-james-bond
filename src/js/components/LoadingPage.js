@@ -3,7 +3,7 @@ import watch from 'redux-watch';
 import Typed from 'typed.js';
 require('../../style/loading-page.scss');
 
-export const LoadingPage = {
+export default {
 
   init(store) {
     this.container = document.getElementById('loading-page');

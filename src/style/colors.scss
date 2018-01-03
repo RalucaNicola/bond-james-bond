@@ -2,7 +2,10 @@ $dark-blue:  rgb(9, 13, 33); // for application background
 $white: #ffffff;
 $transparent-dark-blue: rgba(9, 13, 33, 0.7); // mainly for background of overlays
 
-//$cyan: #42dce0;
+$cyan: #05f0ff;
+$orange: #ffb505;
+
+
 $purple: #c398e0;
 $green: #cde5a7;
 $cyan: #97d9db;
@@ -20,5 +23,7 @@ $blue: #a7a7e5;
     georgelazenby: $purple;
     piercebrosnan: $yellow;
     timothydalton: $blue;
-  }
+  };
+  cyan: $cyan;
+  orange: $orange;
 }

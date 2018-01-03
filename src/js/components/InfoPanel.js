@@ -1,7 +1,8 @@
 import watch from 'redux-watch';
 import Typed from 'typed.js';
 import {visualizationChanged} from '../actions/actionUtils';
-import { dataManager } from '../dataManager';
+import dataManager from '../dataManager';
+import vizConfig from '../visualizationConfig';
 
 import colors from '../../style/colors.scss';
 require('../../style/info-panel.scss');
@@ -59,20 +60,21 @@ function displayActors(container) {
 }
 
 function displayMovies(container) {
+  const topLocations = dataManager.sortedUniqueLocations.slice(0, 3);
   let movieTemplate = document.createElement('template');
     movieTemplate.innerHTML = `<div>
       <p>During all his movies James Bond has mostly travelled to:</p>
       <div>
-        <img class='bond-symbol' src='./src/img/circle-blue.svg' style='height: 40px'>
-        <span>London</span>
+        <img class='bond-symbol' src='${vizConfig.allLocationsSymbol}' style='height: ${vizConfig.getLocationSize(topLocations[0].count)}px'>
+        <span>${topLocations[0].name} (${topLocations[0].count} times)</span>
       </div>
       <div>
-        <img class='bond-symbol' src='./src/img/circle-blue.svg' style='height: 30px; margin: 0 5px;'>
-        <span>Paris</span>
+        <img class='bond-symbol' src='${vizConfig.allLocationsSymbol}' style='height: ${vizConfig.getLocationSize(topLocations[1].count)}px; margin: 0 5px;'>
+        <span>${topLocations[1].name} (${topLocations[1].count} times)</span>
       </div>
       <div style='margin-top: 5px'>
-        <img class='bond-symbol' src='./src/img/circle-blue.svg' style='height: 20px; margin: 0 10px;'>
-        <span>Tokyo</span>
+        <img class='bond-symbol' src='${vizConfig.allLocationsSymbol}' style='height: ${vizConfig.getLocationSize(topLocations[2].count)}px; margin: 0 10px;'>
+        <span>${topLocations[2].name} (${topLocations[2].count} times)</span>
       </div>
       <p>Select a movie in the timeline for more details.</p>
     </div>`;

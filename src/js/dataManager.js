@@ -1,6 +1,5 @@
 import movieList from '../data/movie-list.json';
 import Point from 'esri/geometry/Point';
-import FeatureLayer from 'esri/layers/FeatureLayer';
 
 const movies = movieList.movies;
 
@@ -54,9 +53,9 @@ let uniqueLocations = getUniqueLocations(movieList.movies);
 
 let sortedUniqueLocations = sortLocationsByCount(uniqueLocations);
 
-function getAllLocationsAsFeatureLayer() {
+function getAllLocationsSource() {
 
-  let src = sortedUniqueLocations.map(function(feature, index) {
+  let source = sortedUniqueLocations.map(function(feature, index) {
     return {
       geometry: new Point({
         longitude: feature.longitude,
@@ -92,83 +91,15 @@ function getAllLocationsAsFeatureLayer() {
       type: 'number'
     }
   ];
-  return new FeatureLayer({
-    source: src,
-    fields: fields,
-    objectIdField: 'ObjectID',
-    geometryType: 'point',
-    title: 'All locations',
-    screenSizePerspectiveEnabled: false,
-    renderer: {
-      type: 'simple',
-      symbol: {
-        type: 'point-3d',
-        symbolLayers: [{
-          type: 'icon',
-          resource: {
-            href: './src/img/circle-blue.svg'
-          },
-          size: 20
-        }]
-      },
-      visualVariables: [
-        {
-          type: 'size',
-          field: 'count',
-          stops: [
-            {
-              value: 1,
-              size: 20
-            },
-            {
-              value: 3,
-              size: 30
-            },
-            {
-              value: 6,
-              size: 40
-            }]
-        }
-      ]
-    },
-    outFields: ['*'],
-    labelingInfo: [
-      {
-        labelExpressionInfo: {
-          value: '{name}'
-        },
-        symbol: {
-          type: 'label-3d',
-          symbolLayers: [{
-            type: 'text',
-            material: {
-              color: [250, 250, 250]
-            },
-            font: {
-              family: 'Roboto Mono'
-            },
-            size: 9
-          }],
-          verticalOffset: {
-            screenLength: 200,
-            maxWorldLength: 100000,
-            minWorldLength: 5000
-          },
-          callout: {
-            type: 'line',
-            size: 0.5,
-            color: [255, 255, 255]
-          },
-        }
-      }],
-    labelsVisible: true
-  });
+  return {
+    fields,
+    source
+  };
 }
 
-
-export const dataManager = {
+export default {
   movies,
   uniqueActors,
   sortedUniqueLocations,
-  getAllLocationsAsFeatureLayer
+  getAllLocationsSource
 };
