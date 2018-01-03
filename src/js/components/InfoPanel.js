@@ -4,7 +4,6 @@ import {visualizationChanged} from '../actions/actionUtils';
 import dataManager from '../dataManager';
 import vizConfig from '../visualizationConfig';
 
-import colors from '../../style/colors.scss';
 require('../../style/info-panel.scss');
 
 function startTyping(container, text, onComplete) {
@@ -45,14 +44,12 @@ function initializeMenu(container, store) {
   });
 }
 
-
-
 function displayActors(container) {
   let actors = dataManager.uniqueActors;
   actors.forEach((actor) => {
     let actorTemplate = document.createElement('template');
     actorTemplate.innerHTML = `<div>
-      <img class='bond-symbol' src='./src/img/bond-actor.png' style='border:3px solid ${colors['actors-' + actor.replace(' ','').toLowerCase()]}'>
+      ${vizConfig.getDOMSymbolForActors(actor)}
       <span>${actor}</span>
     </div>`;
     container.appendChild(actorTemplate.content.firstElementChild);
