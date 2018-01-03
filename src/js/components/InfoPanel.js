@@ -66,11 +66,11 @@ function displayMovies(container) {
         <span>${topLocations[0].name} (${topLocations[0].count} times)</span>
       </div>
       <div>
-        <img class='bond-symbol' src='${vizConfig.allLocationsSymbol}' style='height: ${vizConfig.getLocationSize(topLocations[1].count)}px; margin: 0 5px;'>
+        <img class='bond-symbol' src='${vizConfig.allLocationsSymbol}' style='height: ${vizConfig.getLocationSize(topLocations[1].count)}px;'>
         <span>${topLocations[1].name} (${topLocations[1].count} times)</span>
       </div>
-      <div style='margin-top: 5px'>
-        <img class='bond-symbol' src='${vizConfig.allLocationsSymbol}' style='height: ${vizConfig.getLocationSize(topLocations[2].count)}px; margin: 0 10px;'>
+      <div>
+        <img class='bond-symbol' src='${vizConfig.allLocationsSymbol}' style='height: ${vizConfig.getLocationSize(topLocations[2].count)}px;'>
         <span>${topLocations[2].name} (${topLocations[2].count} times)</span>
       </div>
       <p>Select a movie in the timeline for more details.</p>

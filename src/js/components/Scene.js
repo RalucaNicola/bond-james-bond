@@ -12,26 +12,78 @@ require('../../style/scene.scss');
 
 export default {
 
-  init(store) {
-
-    this.store = store;
-
-    let novaBaseLayer = new VectorTileLayer({
-      url: 'https://basemaps.arcgis.com/b2/arcgis/rest/services/World_Basemap/VectorTileServer'
-    });
-    novaBaseLayer.loadStyle(novaStyle);
-
-    this.webscene = new WebScene({
-      basemap: {
-        baseLayers: [novaBaseLayer]
+  getLocationsByActorLayer() {
+    let locationsSource = dataManager.getAllLocationsSource();
+    let uniqueActorValues = [];
+    locationsSource.source.forEach((feature) => {
+      if (uniqueActorValues.indexOf(feature.attributes.actors) === -1) {
+        uniqueActorValues.push(feature.attributes.actors);
       }
     });
 
-    let animationWatcher = watch(store.getState, 'initialization.animationFinished');
-    store.subscribe(animationWatcher(() => {
-      this._initializeView();
-    }));
+    let uniqueValueInfos = uniqueActorValues.map((actors) => {
+      return {
+        symbol: {
+          type: 'point-3d',
+          symbolLayers: [{
+            type: 'icon',
+            resource: {
+              href: vizConfig.getSceneSymbolForActors(actors.split(','))
+            },
+            anchor: 'bottom',
+            size: '120px'
+          }]
+        },
+        value: actors
+      };
+    });
 
+
+    return new FeatureLayer({
+      visible: false,
+      source: locationsSource.source,
+      fields: locationsSource.fields,
+      objectIdField: 'ObjectID',
+      geometryType: 'point',
+      title: 'All locations by actor',
+      screenSizePerspectiveEnabled: false,
+      renderer: {
+        type: 'unique-value',
+        field: 'actors',
+        uniqueValueInfos: uniqueValueInfos
+      },
+      outFields: ['*'],
+      labelingInfo: [
+        {
+          labelExpressionInfo: {
+            value: '{name}'
+          },
+          symbol: {
+            type: 'label-3d',
+            symbolLayers: [{
+              type: 'text',
+              material: {
+                color: [250, 250, 250]
+              },
+              font: {
+                family: 'Roboto Mono'
+              },
+              size: 9
+            }],
+            verticalOffset: {
+              screenLength: 200,
+              maxWorldLength: 100000,
+              minWorldLength: 2000
+            },
+            callout: {
+              type: 'line',
+              size: 0.5,
+              color: [255, 255, 255]
+            },
+          }
+        }],
+      labelsVisible: true
+    });
   },
 
   getAllLocationsLayer() {
@@ -39,11 +91,12 @@ export default {
     let locationsSource = dataManager.getAllLocationsSource();
 
     return new FeatureLayer({
+      visible: false,
       source: locationsSource.source,
       fields: locationsSource.fields,
       objectIdField: 'ObjectID',
       geometryType: 'point',
-      title: 'All locations',
+      title: 'All locations by count',
       screenSizePerspectiveEnabled: false,
       renderer: {
         type: 'simple',
@@ -105,6 +158,48 @@ export default {
       labelsVisible: true
     });
   },
+  init(store) {
+
+    this.store = store;
+
+    let novaBaseLayer = new VectorTileLayer({
+      url: 'https://basemaps.arcgis.com/b2/arcgis/rest/services/World_Basemap/VectorTileServer'
+    });
+    novaBaseLayer.loadStyle(novaStyle);
+
+    this.allLocationsLayer = this.getAllLocationsLayer();
+    this.locationsByActorLayer = this.getLocationsByActorLayer();
+
+    this.webscene = new WebScene({
+      basemap: {
+        baseLayers: [novaBaseLayer]
+      },
+      layers: [this.allLocationsLayer, this.locationsByActorLayer]
+    });
+
+    let animationWatcher = watch(store.getState, 'initialization.animationFinished');
+    store.subscribe(animationWatcher(() => {
+      this._initializeView();
+    }));
+
+    let visualizationChangeWatcher = watch(store.getState, 'visualization');
+    store.subscribe(visualizationChangeWatcher((value) => {
+      this.render(value);
+    }));
+
+    this.render(store.getState().visualization);
+
+  },
+
+  render(value) {
+    if (value.mode === 'Actor') {
+      this.locationsByActorLayer.visible = true;
+      this.allLocationsLayer.visible = false;
+    } else if (value.mode === 'Movie') {
+      this.locationsByActorLayer.visible = false;
+      this.allLocationsLayer.visible = true;
+    }
+  },
 
   _initializeView() {
     this.view = new SceneView({
@@ -137,8 +232,6 @@ export default {
     window.setTimeout(() => {
       this.store.dispatch(viewReady());
     }, 5000);
-
-    this.webscene.add(this.getAllLocationsLayer());
 
   },
 

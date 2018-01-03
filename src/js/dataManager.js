@@ -1,4 +1,4 @@
-import movieList from '../data/movie-list.json';
+import movieList from '../data/test-movie-list.json';
 import Point from 'esri/geometry/Point';
 
 const movies = movieList.movies;
@@ -25,14 +25,18 @@ function getUniqueLocations(movies) {
             return l.name === location.name;
         });
         if (locationIndex !== -1) {
-            uniqueLocations[locationIndex].count++;
+          uniqueLocations[locationIndex].count++;
+          if (uniqueLocations[locationIndex].actors.indexOf(movie.actor) === -1) {
+            uniqueLocations[locationIndex].actors.push(movie.actor);
+          }
         }
         else {
-            uniqueLocations.push(Object.assign({}, location, {
-            count: 1
-            }));
+          uniqueLocations.push(Object.assign({}, location, {
+            count: 1,
+            actors: [movie.actor]
+          }));
         }
-        }
+      }
     }
   }
   return uniqueLocations;
@@ -68,7 +72,8 @@ function getAllLocationsSource() {
         ObjectID: index,
         name: feature.name,
         country: feature.country,
-        count: feature.count
+        count: feature.count,
+        actors: feature.actors.sort().join(',')
       }
     };
   });
@@ -89,6 +94,10 @@ function getAllLocationsSource() {
       name: 'count',
       alias: 'count',
       type: 'number'
+    },{
+      name: 'actors',
+      alias: 'actors',
+      type: 'string'
     }
   ];
   return {
