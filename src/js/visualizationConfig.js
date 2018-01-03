@@ -62,7 +62,7 @@ export default {
       svg.appendChild(createPortrait(4 - index));
     });
     const svgAsString = new XMLSerializer().serializeToString(svg).replace(/a0:/g, '');
-    const svgAsBase64 = 'data:image/svg+xml,' + encodeURI(svgAsString);
+    const svgAsBase64 = 'data:image/svg+xml;base64, ' + window.btoa(svgAsString);
     return svgAsBase64;
   },
   getDOMSymbolForActors(actor) {
