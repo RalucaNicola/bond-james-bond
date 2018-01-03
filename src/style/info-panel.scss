@@ -4,6 +4,10 @@
   background-color: white;
   color: $dark-blue;
 }
+@mixin bond-symbol {
+  vertical-align: middle;
+  margin-top: 2px;
+}
 
 #info-panel {
   position: absolute;
@@ -43,9 +47,16 @@
     padding-bottom: 5px;
   }
 
-  .bond-symbol {
-    vertical-align: middle;
-    margin-top: 2px;
+  .bond-symbol-2, .bond-symbol-1, .bond-symbol-3 {
+    @include bond-symbol;
+  }
+
+  .bond-symbol-2 {
+    margin: 2px 4px;
+  }
+
+  .bond-symbol-3 {
+    margin: 0 6px;
   }
 
 }
