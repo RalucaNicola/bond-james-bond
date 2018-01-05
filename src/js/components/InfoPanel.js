@@ -65,7 +65,7 @@ function displayMovies(container) {
         return `<div>
           <img class='bond-symbol-${index + 1}' src='${vizConfig.allLocationsSymbol}' style='height: ${vizConfig.getLocationSize(location.count)}px'>
           <span>${location.name} (${location.count} times)</span>
-        </div>`
+        </div>`;
       }).join('')}
       <p>Select a movie in the timeline for more details.</p>
     </div>`;
@@ -89,25 +89,25 @@ export default {
         `Visualize James Bond's travels based on:`,
         () => {
           initializeMenu(this.menu, store);
-          this.render(store.getState().visualization);
+          this.render(store.getState().visualization.mode);
         }
       );
     }));
 
-    let visualizationChangeWatcher = watch(store.getState, 'visualization');
+    let visualizationChangeWatcher = watch(store.getState, 'visualization.mode');
     store.subscribe(visualizationChangeWatcher((value) => {
       this.render(value);
     }));
 
   },
 
-  render(stateVisualization) {
+  render(visualizationMode) {
 
-    if (stateVisualization.mode === 'Actor') {
+    if (visualizationMode === 'Actor') {
       emptyElement(this.details);
       displayActors(this.details);
     }
-    else if (stateVisualization.mode === 'Movie') {
+    else if (visualizationMode === 'Movie') {
       emptyElement(this.details);
       displayMovies(this.details);
     }

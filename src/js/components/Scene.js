@@ -4,6 +4,8 @@ import VectorTileLayer from 'esri/layers/VectorTileLayer';
 import novaStyle from '../../data/nova.json';
 import FeatureLayer from 'esri/layers/FeatureLayer';
 import GraphicsLayer from 'esri/layers/GraphicsLayer';
+import Graphic from 'esri/Graphic';
+import Polyline from 'esri/geometry/Polyline';
 import watch from 'redux-watch';
 import {viewReady} from '../actions/actionUtils';
 
@@ -160,9 +162,16 @@ export default {
     });
   },
 
+  cleanUpArcLines() {
+    this.arcLinesLayer.removeAll();
+  },
+
   init(store) {
 
     this.store = store;
+    this.state = {
+      timeout: null
+    };
 
     let novaBaseLayer = new VectorTileLayer({
       url: 'https://basemaps.arcgis.com/b2/arcgis/rest/services/World_Basemap/VectorTileServer'
@@ -190,23 +199,92 @@ export default {
       this._initializeView();
     }));
 
-    let visualizationChangeWatcher = watch(store.getState, 'visualization');
+    let visualizationChangeWatcher = watch(store.getState, 'visualization.mode');
     store.subscribe(visualizationChangeWatcher((value) => {
       this.render(value);
     }));
 
-    this.render(store.getState().visualization);
+    let visualizationSelectionWatcher = watch(store.getState, 'visualization.selection');
+    store.subscribe(visualizationSelectionWatcher((value) => {
+      this.cleanUpArcLines();
+      if (value) {
+        this._startAnimation(dataManager.moviesWithArcLines[value]);
+      }
+
+    }));
+    this.render(store.getState().visualization.mode);
 
   },
 
   render(value) {
-    if (value.mode === 'Actor') {
+    if (value === 'Actor') {
       this.locationsByActorLayer.visible = true;
       this.allLocationsLayer.visible = false;
-    } else if (value.mode === 'Movie') {
+    } else if (value === 'Movie') {
       this.locationsByActorLayer.visible = false;
       this.allLocationsLayer.visible = true;
     }
+  },
+
+  _startAnimation(movie) {
+    if (this.state.timeout) {
+      clearTimeout(this.state.timeout);
+    }
+    this.view.goTo({ target: movie.arcLines, tilt: 60 }, { duration: 2000 })
+    .then(function () {
+      this._currentLineIndex = 0;
+      this._lines = movie.arcLines;
+      this._startMovieAnimation();
+    }.bind(this))
+    .otherwise(err => console.log(err));
+  },
+
+  _animateLine: function (line, currentVertex) {
+    let paths = line.paths[0];
+    let i = currentVertex;
+    /* if (this.state.inAnimation) { */
+      if (i < paths.length) {
+
+        let polyline = new Polyline({
+          paths: paths.slice(i, i + 2),
+          spatialReference: {
+            wkid: 3857
+          }
+        });
+
+        let opacity = 0.1 + i / paths.length;
+        let lineSymbol = {
+          type: 'simple-line',
+          color: [66, 220, 224, opacity],
+          width: 3
+        };
+
+        let lineGraphic = new Graphic({
+          geometry: polyline,
+          symbol: lineSymbol
+        });
+
+        this.arcLinesLayer.add(lineGraphic);
+
+        this.state.timeout = window.setTimeout(function () {
+          this._animateLine(line, currentVertex + 1);
+        }.bind(this), 10);
+      }
+      else {
+        this._currentLineIndex++;
+        this._startMovieAnimation(this._lines, this._currentLineIndex);
+      }
+    /* } */
+  },
+
+
+  _startMovieAnimation: function() {
+    /* if (this.state.inAnimation) { */
+      if (this._currentLineIndex < this._lines.length) {
+        let line = this._lines[this._currentLineIndex];
+        this._animateLine(line, 0);
+      }
+    /* } */
   },
 
   _initializeView() {

@@ -3,7 +3,10 @@ import Point from 'esri/geometry/Point';
 import Polyline from 'esri/geometry/Polyline';
 import geometryEngine from 'esri/geometry/geometryEngine';
 
-const movies = movieList.movies;
+const movies = movieList.movies.map((movie, index) => {
+  movie.id = index;
+  return movie;
+});
 
 function createPoint(feature) {
   return new Point({
@@ -12,7 +15,7 @@ function createPoint(feature) {
     spatialReference: {
       wkid: 3857
     }
-  })
+  });
 }
 
 function getArcLines(locations) {

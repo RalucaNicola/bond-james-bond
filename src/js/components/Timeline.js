@@ -1,6 +1,6 @@
 import dataManager from '../dataManager';
 import watch from 'redux-watch';
-
+import { selectionChanged } from '../actions/actionUtils';
 import colors from '../../style/colors.scss';
 require('../../style/timeline.scss');
 
@@ -31,7 +31,7 @@ function displayTooltip(left, top) {
 }
 
 function handleEventsOnMouseOver(movieItem) {
-  movieItem.addEventListener('mouseover', function (evt) {
+  movieItem.addEventListener('mouseover', (evt) => {
     let target = evt.target;
     let image = target.getElementsByTagName('img')[0];
     let position = image.getBoundingClientRect();
@@ -41,11 +41,17 @@ function handleEventsOnMouseOver(movieItem) {
     evt.stopPropagation();
   });
 
-  movieItem.addEventListener('mouseout', function (evt) {
+  movieItem.addEventListener('mouseout', (evt) => {
     let image = evt.target.getElementsByTagName('img')[0];
     image.classList.remove('selected');
     document.querySelector('.tooltip').classList.remove('visible');
     evt.stopPropagation();
+  });
+}
+
+function handleEventsOnClick(movieItem, store) {
+  movieItem.addEventListener('click', (evt) => {
+    store.dispatch(selectionChanged(movieItem.dataset.id));
   });
 }
 
@@ -85,6 +91,7 @@ export default {
 
       // add event listeners
       handleEventsOnMouseOver(movieItem);
+      handleEventsOnClick(movieItem, store);
 
     });
 
