@@ -66,7 +66,6 @@ function getMoviesWithArcLines() {
 }
 
 const moviesWithArcLines = getMoviesWithArcLines();
-console.log(moviesWithArcLines);
 
 // list of unique actors used for the legend in the info panel
 

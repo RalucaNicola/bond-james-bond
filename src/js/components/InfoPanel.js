@@ -76,6 +76,20 @@ function emptyElement(element) {
   element.innerHTML = '';
 }
 
+function displayMovie(container, movie) {
+  let movieTemplate = document.createElement('template');
+  movieTemplate.innerHTML = `<div>
+    <h3>${movie.title}</h3>
+    <p>Year: ${movie.year}</p>
+    <p>Director: ${movie.director}</p>
+    <p>Actor: ${movie.actor}</p>
+    <p> James Bond travels to: </p>
+    <ul>${movie.locations.map( location => `<li>${ location.name }, ${ location.country }</li>`).join(' ')}
+    </div>`;
+
+  container.appendChild(movieTemplate.content.firstElementChild);
+}
+
 export default {
   init(store) {
     this.container = document.getElementById('info-panel');
@@ -97,6 +111,16 @@ export default {
     let visualizationChangeWatcher = watch(store.getState, 'visualization.mode');
     store.subscribe(visualizationChangeWatcher((value) => {
       this.render(value);
+    }));
+
+    let visualizationSelectionWatcher = watch(store.getState, 'visualization.selection');
+    store.subscribe(visualizationSelectionWatcher((value) => {
+      if (value) {
+        emptyElement(this.details);
+        displayMovie(this.details, dataManager.movies[value]);
+      } else {
+        this.render(store.getState().visualization.mode);
+      }
     }));
 
   },

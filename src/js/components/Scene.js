@@ -210,8 +210,8 @@ export default {
       if (value) {
         this._startAnimation(dataManager.moviesWithArcLines[value]);
       }
-
     }));
+
     this.render(store.getState().visualization.mode);
 
   },
