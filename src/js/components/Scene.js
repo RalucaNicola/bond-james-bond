@@ -3,6 +3,7 @@ import SceneView from 'esri/views/SceneView';
 import VectorTileLayer from 'esri/layers/VectorTileLayer';
 import novaStyle from '../../data/nova.json';
 import FeatureLayer from 'esri/layers/FeatureLayer';
+import GraphicsLayer from 'esri/layers/GraphicsLayer';
 import watch from 'redux-watch';
 import {viewReady} from '../actions/actionUtils';
 
@@ -158,6 +159,7 @@ export default {
       labelsVisible: true
     });
   },
+
   init(store) {
 
     this.store = store;
@@ -167,6 +169,8 @@ export default {
     });
     novaBaseLayer.loadStyle(novaStyle);
 
+    this.arcLinesLayer = new GraphicsLayer();
+
     this.allLocationsLayer = this.getAllLocationsLayer();
     this.locationsByActorLayer = this.getLocationsByActorLayer();
 
@@ -174,7 +178,11 @@ export default {
       basemap: {
         baseLayers: [novaBaseLayer]
       },
-      layers: [this.allLocationsLayer, this.locationsByActorLayer]
+      layers: [
+        this.allLocationsLayer,
+        this.locationsByActorLayer,
+        this.arcLinesLayer
+      ]
     });
 
     let animationWatcher = watch(store.getState, 'initialization.animationFinished');

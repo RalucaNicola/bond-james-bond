@@ -1,7 +1,71 @@
 import movieList from '../data/test-movie-list.json';
 import Point from 'esri/geometry/Point';
+import Polyline from 'esri/geometry/Polyline';
+import geometryEngine from 'esri/geometry/geometryEngine';
 
 const movies = movieList.movies;
+
+function createPoint(feature) {
+  return new Point({
+    longitude: feature.longitude,
+    latitude: feature.latitude,
+    spatialReference: {
+      wkid: 3857
+    }
+  })
+}
+
+function getArcLines(locations) {
+
+  let arcLines = [];
+
+  if (locations) {
+    for (let i = 0; i < locations.length - 1; i++) {
+
+      let point1 = createPoint(locations[i]);
+      let point2 = createPoint(locations[i+1]);
+
+      // build a line between the 2 locations
+      let initialTravelLine = new Polyline({
+        paths: [
+          [point1.x, point1.y, 0],
+          [point2.x, point2.y, 0]
+        ],
+        spatialReference: {
+          wkid: 3857
+        }
+      });
+
+      // densify the line
+      let distance = geometryEngine.distance(point1, point2, 'meters');
+      let segmentLength = 5000 * parseInt(distance).toString().length;
+      let densifiedTravelLine = geometryEngine.densify(initialTravelLine, segmentLength, 'meters');
+
+      // add z values to vertices to make a nice arc
+      let vertices = densifiedTravelLine.paths[0];
+      for (let i = 0; i < vertices.length; i++) {
+        vertices[i][2] = -50000 * Math.pow(i, 2) / (vertices.length - 1) + i * 50000;
+      }
+
+      // add line to the arcLines
+      arcLines.push(densifiedTravelLine);
+    }
+  }
+
+  return arcLines;
+}
+
+function getMoviesWithArcLines() {
+  return movies.map((movie) => {
+    movie.arcLines = getArcLines(movie.locations);
+    return movie;
+  });
+}
+
+const moviesWithArcLines = getMoviesWithArcLines();
+console.log(moviesWithArcLines);
+
+// list of unique actors used for the legend in the info panel
 
 function getUniqueActors() {
   let actors = [];
@@ -14,11 +78,18 @@ function getUniqueActors() {
 }
 const uniqueActors = getUniqueActors();
 
+/*
+ list of unique locations used to create the layer of locations
+ the attributes for the locations are also calculated
+ - count: how many times James Bond went to that location
+ - actors: a list of actors that went to that location
+*/
+
 function getUniqueLocations(movies) {
   let uniqueLocations = [];
   for (let i = 0; i < movies.length; i++) {
-      const movie = movies[i];
-    if (movies[i].locations) {
+    const movie = movies[i];
+    if (movie.locations) {
         for (let j = 0; j < movie.locations.length; j++) {
         const location = movie.locations[j];
         let locationIndex = uniqueLocations.findIndex((l) => {
@@ -42,6 +113,7 @@ function getUniqueLocations(movies) {
   return uniqueLocations;
 }
 
+// sort locations by count to display the most visited ones in the info panel
 function sortLocationsByCount(locations) {
   return locations.sort((l1, l2) => {
     if (l1.count > l2.count) {
@@ -61,13 +133,7 @@ function getAllLocationsSource() {
 
   let source = sortedUniqueLocations.map(function(feature, index) {
     return {
-      geometry: new Point({
-        longitude: feature.longitude,
-        latitude: feature.latitude,
-        spatialReference: {
-          wkid: 102100
-        }
-      }),
+      geometry: createPoint(feature),
       attributes: {
         ObjectID: index,
         name: feature.name,
@@ -108,6 +174,7 @@ function getAllLocationsSource() {
 
 export default {
   movies,
+  moviesWithArcLines,
   uniqueActors,
   sortedUniqueLocations,
   getAllLocationsSource
