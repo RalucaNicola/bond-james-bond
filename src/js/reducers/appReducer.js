@@ -17,7 +17,7 @@ state: {
   },
   visualization: {
     mode: 'Actor'/'Movie',
-    selection: 'none'/Object representing actor or movie
+    selection: null/Object representing actor or movie
   }
 }
 */

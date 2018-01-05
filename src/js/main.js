@@ -1,3 +1,7 @@
+/*
+  main app - only used for initializing
+*/
+
 import storeConfig from './storeConfig';
 import LoadingPage from './components/LoadingPage';
 import Scene from './components/Scene';

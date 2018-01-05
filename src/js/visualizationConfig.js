@@ -1,11 +1,11 @@
+/*
+ module that has all the settings for the symbology
+ stores colors, sizes and creates svg symbols
+*/
+
 import colors from '../style/colors.scss';
 
-/* alternatives:
-  locationSymbol: './src/img/circle-orange.svg',
-  locationColor: colors.orange,
-  locationSymbol: './src/img/circle-blue.svg',
-  locationColor: colors.cyan,
- */
+ /* helper functions */
 
  function setAttributes(el, attrs) {
   for (let key in attrs) {
@@ -14,6 +14,7 @@ import colors from '../style/colors.scss';
     }
   }
  }
+
  function createSVG() {
   let svg = document.createElement('svg');
   setAttributes(svg, {
@@ -43,15 +44,29 @@ import colors from '../style/colors.scss';
  }
 
 export default {
+
+  // symbol and color for the general location symbol
+  /* alternatives:
+    locationSymbol: './src/img/circle-orange.svg',
+    locationColor: colors.orange,
+    locationSymbol: './src/img/circle-blue.svg',
+    locationColor: colors.cyan,
+  */
   allLocationsSymbol: './src/img/circle-blue.svg',
   allLocationsColor: colors.cyan,
-  minCount: 1,
-  maxCount: 14,
-  minSize: 20,
-  maxSize: 40,
+
+  // values used for visualizing the number of times Bond visited a city
+  minCount: 1, // minimum number of times a city was visited
+  maxCount: 14, // maximum number of times a city was visited
+  minSize: 20,  // symbol size corresponding to minCount
+  maxSize: 40, // symbol size corresponding to maxCount
+
+  // interpolator that gets the size of the symbol based on the number of times Bond visited a city
   getLocationSize(count) {
     return (this.maxSize - this.minSize) * (count - this.minCount) / (this.maxCount - this.minCount) + this.minSize;
   },
+
+  // dynamically create an svg symbol for a location with all the actors that visited that location
   getSceneSymbolForActors(actors) {
     let svg = createSVG();
     svg.setAttribute('viewBox', '0 0 20 100');
@@ -65,6 +80,8 @@ export default {
     const svgAsBase64 = 'data:image/svg+xml;base64, ' + window.btoa(svgAsString);
     return svgAsBase64;
   },
+
+  // dynamically create an svg symbol for an actor for the legend
   getDOMSymbolForActors(actor) {
     let svg = createSVG();
     svg.setAttribute('viewBox', '0 0 20 20');
