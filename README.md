@@ -18,7 +18,7 @@ It uses [ArcGIS API for Javascript](https://developers.arcgis.com/javascript/) f
 
 ## Data
 
-Information about movies: year of production, director, actor and poster: IMDB (to do: clear up with them the terms of use for the images).
+Information about movies: year of production, director, actor: Wikipedia.
 
 James Bond graphic: http://all-free-download.com/free-vector/download/james_bond_007_81422.html
 
